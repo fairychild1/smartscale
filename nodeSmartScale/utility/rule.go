@@ -170,6 +170,31 @@ func GetInstanceNum(appGuid string) (int,error) {
 
 func GetMememoryQuota(appGuid string) (float64,error) {
 	domain :=beego.AppConfig.String("domain")
+	username :=beego.AppConfig.String("username")
+	password :=beego.AppConfig.String("password")
+	if ApiStruct == nil {
+		ApiStruct =NewApi(domain,username,password,false,false)
+	}
+	r, err := ApiStruct.GetFromLogSystem(fmt.Sprintf("/message/getAppResourceQuota/%s/",appGuid))
+	if err != nil {
+		return 0.0,err
+	}
+
+	body, _ := ioutil.ReadAll(r.Body)
+	tempStru :=  map[string] interface{}{}
+	if err := json.Unmarshal(body, &tempStru); err != nil {
+		fmt.Println(err)
+		return 0.0,err
+	} else{
+		mem,_ :=strconv.Atoi(SwitchNullInterface(tempStru["memory_quota"],false))
+		fmt.Printf("查询应用的内存配额得到的是%d\n",mem)
+		return float64(mem),nil
+	}
+
+}
+
+func GetMememoryQuota1(appGuid string) (float64,error) {
+	domain :=beego.AppConfig.String("domain")
 	url :="https://message."+domain+"/message/getAppResourceQuota/"+appGuid+"/"
 	req, err := http.NewRequest("GET", url, strings.NewReader("name=wy"))
 	if err != nil {

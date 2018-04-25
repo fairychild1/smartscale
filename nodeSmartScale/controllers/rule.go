@@ -107,6 +107,7 @@ func DealWithRule(v map[string]interface{},ruleguid string){
 		memoryQuota,err :=utility.GetMememoryQuota(appguid)
 		if err != nil {
 			fmt.Println(err)
+			return
 		} else {
 			fmt.Printf("获取应用的内存配额成功,内存配额是%.2f\n",memoryQuota)
 			memUsage = memUsage/memoryQuota

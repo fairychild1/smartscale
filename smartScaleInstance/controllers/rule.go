@@ -150,6 +150,15 @@ func (this * RuleController) DeleteRule () {
 		return
 	}
 
+	//在规则与节点关系表里删除规则节点关联记录
+	err = models.DelNodeRuleRelation(ruleguid)
+	if err != nil {
+		fmt.Printf("删除数据库中规则与节点的关联关系失败，请检查数据库是否正常运行，或者检查该规则的guid是否正确")
+		this.Ctx.Output.SetStatus(400)
+		this.Ctx.Output.Body([]byte("删除数据库中规则与节点的关联关系失败，请检查数据库是否正常运行，或者检查该规则的guid是否正确"))
+		return
+	}
+
 	fmt.Printf("删除规则%s成功\n",ruleguid)
 	this.Ctx.Output.SetStatus(200)
 	this.Ctx.Output.Body([]byte("删除规则成功"))

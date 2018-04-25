@@ -56,6 +56,15 @@ func (api *Api) Get(url string) (*http.Response, error) {
 	return api.doAuthenticatedRequest(req)
 }
 
+func (api *Api) GetFromLogSystem(url string) (*http.Response, error) {
+	u := fmt.Sprintf("http://message.%s%s", api.domain, url)
+	req, err := http.NewRequest("GET", u, nil)
+	if err != nil {
+		return nil, err
+	}
+	return api.doAuthenticatedRequest(req)
+}
+
 func (api *Api) doAuthenticatedRequest(req *http.Request) (*http.Response, error) {
 	req.Header.Set("Accept", "application/json")
 	req.Header.Set("Authorization", "Bearer "+api.getAccessToken())

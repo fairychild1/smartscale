@@ -39,7 +39,7 @@ func RefreshRuleInDeadNode(){
 			} else {
 				//将死掉的节点的is_active状态设置为false,将运行的规则数设置为0
 				RefreshNodeStatus(v)
-				
+
 				//判断节点上是否还有规则，如果有，就迁移，如果没有，就跳过
 				if v.CurrentApps == 0 {
 					continue
