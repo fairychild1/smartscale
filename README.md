@@ -74,7 +74,7 @@ post http://10.89.128.18:8080/updaterule/
 
 ## 获取uaa的token
 ```
-post http://uaa.truepaas.com/oauth/token?username=wangying@chutianyun.gov.cn&password=123456&grant_type=password
+post http://uaa.truepaas.com/oauth/token?username=[username]&password=[password]&grant_type=password
 [{"key":"Content-Type","value":"application/x-www-form-urlencoded","description":""},{"key":"Authorization","value":"Basic Y2Y6","description":""},{"key":"Accept","value":"application/json","description":""}]
 
 ```
